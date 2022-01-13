@@ -8,8 +8,10 @@ import {
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import uuid from 'react-native-uuid';
 
 import { useForm } from 'react-hook-form';
+import { useNavigation } from '@react-navigation/native';
 
 import { InputForm } from '../../components/Forms/InputForm';
 import { Button } from '../../components/Forms/Button';
@@ -28,6 +30,11 @@ import {
 interface FormData {
     name: string;
     amount: string;
+}
+
+// Typing Navigation
+type NavigationProps = {
+    navigate:(screen:string) => void;
 }
 
 const schema = Yup.object().shape({
@@ -52,9 +59,13 @@ export function Register(){
         name: 'Categoria',
     });
 
+    // Declaring variable navigation
+    const navigation = useNavigation<NavigationProps>();
+
     const { 
-        control,
+        control,        
         handleSubmit,
+        reset,
         formState: { errors }
     } = useForm({
         resolver: yupResolver(schema)
@@ -79,12 +90,13 @@ export function Register(){
         if(category.key === 'category')
             return Alert.alert('Selecione a categoria');
 
-        
         const newTransaction = {
+            id: String(uuid.v4()),
             name: form.name,
             amount: form.amount,
             transactionType,
-            category: category.key
+            category: category.key,
+            date: new Date()
         }
 
         try {
@@ -99,6 +111,17 @@ export function Register(){
             ];
             // Render all transactions
             await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
+
+            // Reset all fields and default state on field Category
+            reset(); // InputText
+            setTransactionType(''); // Button Income/OutCome
+            setCategory({ // Category
+             key: 'category',
+             name: 'Categoria'   
+            });
+
+            // Moving to screen Listagem after submit on form 
+            navigation.navigate('Listagem');
 
         } catch (error) {
             console.log(error);
