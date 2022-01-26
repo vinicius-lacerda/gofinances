@@ -51,13 +51,13 @@ export function Register(){
     const [transactionType, setTransactionType] = useState('');
     const [categoryModalOpen, setCategoryModalOpen] = useState(false);
 
-    // Key of collection
-    const dataKey = '@gofinances:transactions';
-
     const [category, setCategory] = useState({
         key: 'category',
         name: 'Categoria',
     });
+
+    // Key of collection
+    const dataKey = '@gofinances:transactions';
 
     // Declaring variable navigation
     const navigation = useNavigation<NavigationProps>();
