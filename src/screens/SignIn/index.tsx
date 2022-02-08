@@ -5,6 +5,7 @@ import AppleSvg from '../../assets/apple.svg';
 import GoogleSvg from '../../assets/google.svg';
 import LogoSvg from '../../assets/logo.svg';
 
+import { SignInSocialButton } from '../../components/SignInSocialButton';
 
 import { 
     Container,
@@ -12,7 +13,8 @@ import {
     TitleWrapper,
     Title,
     SignInTitle,
-    Footer
+    Footer,
+    FooterWrapper,
 } from './styles';
 
 export function SignIn(){
@@ -40,7 +42,17 @@ export function SignIn(){
             </Header>
 
             <Footer>
-                
+                <FooterWrapper>
+                    <SignInSocialButton 
+                        title="Entrar no Google"
+                        svg={GoogleSvg}
+                    />
+
+                    <SignInSocialButton 
+                        title="Entrar no Google"
+                        svg={AppleSvg}
+                    />  
+                </FooterWrapper>
             </Footer>
         </Container>
     )
