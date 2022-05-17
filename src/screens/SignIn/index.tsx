@@ -71,16 +71,16 @@ export function SignIn(){
 
             <Footer>
                 <FooterWrapper>
-                    <SignInSocialButton 
+                    <SignInSocialButton
                         title="Entrar no Google"
                         svg={GoogleSvg}
                         onPress={handleSignInWithGoogle}
                     />
 
-                    <SignInSocialButton 
+                    <SignInSocialButton
                         title="Entrar no Google"
                         svg={AppleSvg}
-                        onPress={handleSignInWithApple}                        
+                        onPress={handleSignInWithApple}             
                     />
                 </FooterWrapper>
             </Footer>
